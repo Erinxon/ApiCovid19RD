@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "apis1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.ApiManagement/service/ApiCovidapi/apis/ApiCovid",
+      "type": "apis.azure",
+      "apiEndpoint": "https://apicovidapi.azure-api.net/"
+    }
+  }
+}

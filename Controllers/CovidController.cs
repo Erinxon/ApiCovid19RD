@@ -9,7 +9,7 @@ using ApiCovid.Models;
 namespace ApiCovid.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class CovidController : ControllerBase
     {
         private readonly ICovidServices _covidServices;
@@ -19,7 +19,7 @@ namespace ApiCovid.Controllers
             this._covidServices = services;
         }
 
-        [HttpGet]
+        [HttpGet] //GET
         public async Task<Covid> Get()
         {
             return await _covidServices.getCovid();

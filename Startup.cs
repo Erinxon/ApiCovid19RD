@@ -41,6 +41,8 @@ namespace ApiCovid
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ApiCovid", Version = "v1" });
             });
 
+            services.AddResponseCaching();
+
             var sectionUrlPage = Configuration.GetSection("SectionUrlPage");
             services.Configure<SectionUrlPage>(sectionUrlPage);
 
@@ -67,6 +69,8 @@ namespace ApiCovid
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseResponseCaching();
 
             app.UseEndpoints(endpoints =>
             {

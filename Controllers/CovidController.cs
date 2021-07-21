@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ApiCovid.Services;
 using ApiCovid.Models;
+using ApiCovid.Response;
 
 namespace ApiCovid.Controllers
 {
@@ -20,9 +21,20 @@ namespace ApiCovid.Controllers
         }
 
         [HttpGet] //GET
-        public async Task<Covid> Get()
+        [ResponseCache(Location = ResponseCacheLocation.Any, Duration = 5)]
+        public async Task<ApiResponse<Covid>> Get()
         {
-            return await _covidServices.getCovid();
+            var response = new ApiResponse<Covid>();
+            try
+            {
+                response.Data = await _covidServices.getCovid();
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.message = ex.Message;
+            }
+            return response;
         }
     }
 }

@@ -26,7 +26,7 @@ namespace ApiCovid.Controllers
         {
             var response = await _covidServices.GetCovidAsync();
             return response.Data == null || 
-                response.Success ? BadRequest(response) : 
+                !response.Success ? BadRequest(response) : 
                 Ok(response);
         }
     }

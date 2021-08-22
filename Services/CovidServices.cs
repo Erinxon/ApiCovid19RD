@@ -27,7 +27,7 @@ namespace ApiCovid.Services
             var response = new ApiResponse<Covid>();
             try
             {
-                HtmlDocument htmlDoc = await GetHtmlDocumentAsync(_sectionUrlPage.Url);
+                var htmlDoc = await GetHtmlDocumentAsync(_sectionUrlPage.Url);
                 var htmlNodeCovidGeneral = htmlDoc.DocumentNode.SelectNodes(_xPathExpression.XPATHCovidGeneral);
                 var htmlNodeCovidPorProvincia = htmlDoc.DocumentNode.SelectNodes(_xPathExpression.XPATHCovidPorProvincia);
                 response.Data = htmlNodeCovidGeneral.GetInfoCovidGeneral(_xPathExpression);
@@ -41,8 +41,7 @@ namespace ApiCovid.Services
             return response;
         }
 
-
-        private async Task<HtmlDocument> GetHtmlDocumentAsync(string url)
+        private static async Task<HtmlDocument> GetHtmlDocumentAsync(string url)
         {
             HtmlWeb htmlWeb = new();
             return await htmlWeb.LoadFromWebAsync(url);

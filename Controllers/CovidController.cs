@@ -11,30 +11,23 @@ namespace ApiCovid.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [ResponseCache(Location = ResponseCacheLocation.Any, Duration = 5)]
     public class CovidController : ControllerBase
     {
         private readonly ICovidServices _covidServices;
 
         public CovidController(ICovidServices services)
         {
-            this._covidServices = services;
+            _covidServices = services;
         }
 
-        [HttpGet] //GET
-        [ResponseCache(Location = ResponseCacheLocation.Any, Duration = 5)]
-        public async Task<ApiResponse<Covid>> Get()
+        [HttpGet]
+        public async Task<ActionResult<ApiResponse<Covid>>> Get()
         {
-            var response = new ApiResponse<Covid>();
-            try
-            {
-                response.Data = await _covidServices.getCovid();
-            }
-            catch (Exception ex)
-            {
-                response.Success = false;
-                response.message = ex.Message;
-            }
-            return response;
+            var response = await _covidServices.GetCovidAsync();
+            return response.Data == null || 
+                response.Success ? BadRequest(response) : 
+                Ok(response);
         }
     }
 }

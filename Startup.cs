@@ -12,7 +12,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ApiCovid.Services;
-using ApiCovid.Models;
+using System.Xml.XPath;
+using ApiCovid.AppsettingModels;
 
 namespace ApiCovid
 {
@@ -43,8 +44,8 @@ namespace ApiCovid
 
             services.AddResponseCaching();
 
-            var sectionUrlPage = Configuration.GetSection("SectionUrlPage");
-            services.Configure<SectionUrlPage>(sectionUrlPage);
+            services.Configure<SectionUrlPage>(Configuration.GetSection("SectionUrlPage"));
+            services.Configure<AppsettingModels.XPathExpression>(Configuration.GetSection("XPathExpression"));
 
             services.AddScoped<ICovidServices, CovidServices>();
         }
